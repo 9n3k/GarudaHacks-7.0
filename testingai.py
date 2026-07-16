@@ -12,16 +12,28 @@ model = hub.load("https://tfhub.dev/google/yamnet/1")
 print("Yamnet loaded!")
 
 audio, sr = librosa.load(
-    "test.wav",
+    "wind.wav",
     sr = 16000
 )
 
 rms = np.sqrt(np.mean(audio**2))
-print(f"Audio Loudness: {rms:.4f}")
+
 
 scores, embeddings, spectrogram = model(audio)
 class_map = pd.read_csv("yamnet_class_map.csv")
 scores_mean = scores.numpy().mean(axis=0)
+
+top10 = scores_mean.argsort()[-10:][::-1]
+
+print("\n")
+print("WaspadaOjol Audio YAMNET TESTING")
+print("Top 10 YAMnet Predictions")
+print("\n")
+
+for idx in top10:
+    label = class_map.iloc[idx]["display_name"]
+    confidence = scores_mean[idx]
+    print(f"{label:<32} {confidence*100:6.1f}%")
 
 weights = {
     "Vehicle": 1.0,
@@ -35,9 +47,12 @@ weights = {
     "Vehicle horn, car horn, honking": 0.8,
 }
 
+vehicle_score = 0
 vehicle_classes = 0
 detected = []
-print("Vehicle related sounds")
+print("\n")
+print("Vehicle-Related Detected Sounds")
+print("\n")
 
 for i, label in enumerate(class_map["display_name"]):
     if label in weights:
@@ -45,12 +60,14 @@ for i, label in enumerate(class_map["display_name"]):
 
         if confidence > 0.05:
             detected.append((label, confidence))
-            vehicle_classes += confidence * weights[label]
+            vehicle_score += confidence * weights[label]
+            vehicle_classes += 1
 
 detected.sort(key=lambda x: x[1], reverse=True)
 
 
 threat_score = 0
+threat_score += min(vehicle_score * 40, 50)
 threat_score += min(rms * 100, 20)
 
 if vehicle_classes >= 3:
@@ -60,16 +77,22 @@ elif vehicle_classes == 2:
 elif vehicle_classes == 1:
     threat_score += 5
 
-    if any(label == "Vehicle horn, car horn, honking" for label, _ in detected):
-        threat_score += 15
+if any(label == "Vehicle horn, car horn, honking" for label, _ in detected):
+    threat_score += 15
 
-print("Detected Sounds")
+
 for label, conf in detected:
-    print(f"{label:<35}{conf*100:.1f}%")
+    print(f"{label:<28}{conf*100:>6.1f}%")
 
 
 print("")
+print("ASSESMENT/REPORT")
+print(f"Vehicle score: {vehicle_score:.3f}")
+print(f"Loudness (RMS): {rms:.4f}")
 print(f"Threat score: {threat_score:.1f}/100")
+print("")
+
+print("RESULTS")
 print("")
 
 if threat_score >= 70:
