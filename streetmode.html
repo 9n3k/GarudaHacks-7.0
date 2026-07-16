@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>WaspadaOjol Street Mode</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+
+    <link rel="stylesheet" href="streetmode.css">
+</head>
+
+<body>
+
+<div class="street-page">
+
+    <!-- GREEN HEADER -->
+    <header class="street-header">
+
+        <div class="brand">
+            <div class="mini-logo">
+                🏍️
+            </div>
+
+            <div>
+                <h1>WaspadaOjol</h1>
+                <p>STREET MODE</p>
+            </div>
+        </div>
+
+        <div class="monitor-text">
+            <span>🟢</span>
+            AI is actively monitoring surrounding audio...
+        </div>
+
+    </header>
+
+    <!-- SYSTEM SCANNING -->
+    <section class="scan-card">
+
+        <div class="scanner">
+            <div class="pulse"></div>
+        </div>
+
+        <h2>SYSTEM SCANNING...</h2>
+
+        <div class="mic-row">
+            <span>🎙️</span>
+            <strong>Microphone Active</strong>
+            <span id="micStatus" class="live offline">OFF</span>
+        </div>
+
+    </section>
+
+    <!-- CURRENT SESSION -->
+    <section class="session-card">
+
+        <h3>📍 CURRENT SESSION</h3>
+
+        <div class="session-grid">
+
+            <div>
+                <span>⏱️</span>
+                <strong id="timer">00:00</strong>
+                <p>Duration</p>
+            </div>
+
+            <div>
+                <span>⚠️</span>
+                <strong id="warningCount">0</strong>
+                <p>Warnings</p>
+            </div>
+
+            <div class="safe-box">
+                <span>📡</span>
+                <strong id="status">✅ Safe</strong>
+                <p>Status</p>
+            </div>
+
+        </div>
+
+    </section>
+
+    <button id="stopBtn">
+        🛑 Stop & Save Session
+    </button>
+
+</div>
+
+<script src="streetmode.js"></script>
+
+</body>
+</html>

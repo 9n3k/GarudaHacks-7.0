@@ -1,1 +1,227 @@
- 
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>WaspadaOjol</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+    <link rel="stylesheet" href="homepage.css">
+</head>
+
+<body>
+
+<div class="app-container">
+    <header class="hero">
+        <div class="logo">
+            <svg width="72" height="72" viewBox="0 0 72 72">
+
+    <!-- Green rounded app icon -->
+    <rect
+        x="0"
+        y="0"
+        width="72"
+        height="72"
+        rx="18"
+        fill="#1FA971"/>
+
+
+    <!-- Speed lines -->
+    <line
+        x1="9"
+        y1="28"
+        x2="22"
+        y2="28"
+        stroke="white"
+        stroke-width="3"
+        stroke-linecap="round"/>
+
+    <line
+        x1="7"
+        y1="35"
+        x2="18"
+        y2="35"
+        stroke="white"
+        stroke-width="3"
+        stroke-linecap="round"/>
+
+
+    <!-- Yellow warning spark -->
+    <path
+        d="M49 12 L42 27 L50 27 L44 40"
+        fill="#FFD54A"/>
+
+
+    <!-- Motorcycle wheels -->
+    <circle
+        cx="24"
+        cy="49"
+        r="6"
+        fill="white"/>
+
+    <circle
+        cx="50"
+        cy="49"
+        r="6"
+        fill="white"/>
+
+
+    <!-- Motorcycle frame -->
+    <path
+        d="
+        M24 47
+        L31 34
+        L43 34
+        L49 45
+        L55 45
+        "
+        stroke="white"
+        stroke-width="3"
+        fill="none"
+        stroke-linecap="round"
+        stroke-linejoin="round"/>
+
+
+    <!-- Rider -->
+    <circle
+        cx="36"
+        cy="26"
+        r="4"
+        fill="white"/>
+
+    <line
+        x1="36"
+        y1="30"
+        x2="31"
+        y2="38"
+        stroke="white"
+        stroke-width="3"
+        stroke-linecap="round"/>
+
+
+    <!-- AI audio waves -->
+    <path
+        d="M57 28 Q63 36 57 44"
+        stroke="white"
+        stroke-width="2"
+        fill="none"
+        stroke-linecap="round"/>
+
+</svg>
+        </div>
+        <h1>WaspadaOjol</h1>
+        <h2>Stay Alert, Stay Alive</h2>
+        <p class="subtitle">
+            🤖 AI-Powered Pedestrian Awareness
+        </p>
+
+    </header>
+
+
+    <section class="card">
+        <h3>⚡ SYSTEM STATUS</h3>
+        <div class="status-row">
+            <div>
+                <span class="icon">🛣️</span>
+                Street Mode
+            </div>
+            <span class="badge off">
+                OFF
+            </span>
+        </div>
+        <div class="status-row">
+            <div>
+                <span class="icon">🎙️</span>
+                Microphone
+            </div>
+            <span class="badge off">
+                Inactive
+            </span>
+        </div>
+    </section>
+
+    <section class="card">
+        <h3>🚶 LAST WALK</h3>
+
+        <div id="lastWalkEmpty">
+            <div class="empty">
+                🗺️
+                <h4>No walks recorded yet.</h4>
+                <p>
+                    Start your first street session!
+                </p>
+            </div>
+        </div>
+
+        <div id="lastWalkData" class="hidden">
+            <div class="walk-grid">
+                <div>
+                    <strong id="duration">0m</strong>
+                    <span>Duration</span>
+                </div>
+                <div>
+                    <strong id="warnings">0</strong>
+                    <span>Warnings</span>
+                </div>
+                <div>
+                    <strong id="result">Good</strong>
+                    <span>Result</span>
+                </div>
+            </div>
+            <div id="feedback" class="feedback">
+                Decent walk — stay sharper next time.
+            </div>
+        </div>
+    </section>
+
+
+
+    <section class="card">
+        <h3>🛡️ SAFETY REMINDER</h3>
+        <div class="reminder">
+            <span>📳</span>
+            <div>
+                <strong>Strong Vibration</strong>
+                <p>= Approaching Vehicle Warning</p>
+            </div>
+        </div>
+        <div class="reminder">
+            <span>🔊</span>
+            <div>
+                <strong>Voice Alert</strong>
+                <p>= AI Audio Warning</p>
+            </div>
+        </div>
+
+        <div class="reminder">
+            <span>🎙️</span>
+            <div>
+                <strong>Privacy</strong>
+                <p>Microphone is only active while Street Mode is ON.</p>
+
+            </div>
+
+        </div>
+
+    </section>
+
+</div>
+
+
+
+<div class="bottom-bar">
+    <button id="startBtn">
+        <span class="walkEmoji">🚶</span>
+        <span class="btnTitle">
+            Start Street Mode
+        </span>
+    </button>
+
+</div>
+
+<script src="homepage.js"></script>
+
+</body>
+</html>
