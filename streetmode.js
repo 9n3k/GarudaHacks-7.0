@@ -2,6 +2,7 @@ let seconds = 0;
 let timeInterval;
 let warningCount = 0;
 let micStream;
+let recorder;
 
 function startTimer() {
     if (timeInterval) return;
@@ -84,12 +85,12 @@ async function activateMicrophone() {
         }
         
         }catch (error) {
-            console.log(error.name);
-            if (error.name === "NotAllowedError"){
+            console.log("Microphone error:", error);
                 window.location.href ="denied.html"
             }
         }
-    }
+    
+
 
 function stopMicrophone() {
     if (micStream) {
@@ -100,37 +101,64 @@ function stopMicrophone() {
 }
 
 function startVehicleDetection(){
-console.log(
-"AI vehicle detection started"
-);
+    console.log(
+    "AI vehicle detection started"
+    );
 
-}
+    recorder = new MediaRecorder(micStream);
+    
+
+    recorder.ondataavailable = async(event) => {
+        console.log("Blob type:", event.data.type);
+        console.log("Blob size:", event.data.size);
+        try{
+            let response = await fetch(
+                "http://127.0.0.1:5000/detect",
+                {
+                    method: "POST",
+                    headers: {
+                        "Content-Type": "audio/webm"
+                    },
+                    body:event.data
+                }
+            )
+            let result = await response.json();
+            console.log("AI result:", result);
+            if (result.result === "ALERT") {
+                triggerVehicleAlert();
+            }
+        }
+        catch (error) {
+            console.log ("AI server error:", error)
+        }
+    };
+
+    recorder.start(3000);
+    }
 
 
+function stopVehicleDetection() {
+    console.log("AI vehicle detection stopped");
 
-
-function stopVehicleDetection(){
-console.log(
-"AI vehicle detection stopped"
-);
-
-
+    if (recorder && recorder.state != "inactive") {
+        recorder.stop();
+    }
 }
 
 
 function triggerVehicleAlert(){
 warningCount++;
-console.log(
-"Vehicle warning triggered"
+localStorage.setItem (
+    "warningCount", warningCount
 );
-
-
-
+window.location.href = "warning.html";
 }
 
-window.onload=()=>{
-startTimer();
-activateMicrophone();
-startVehicleDetection();
 
-};
+
+window.onload=async()=> {
+    startTimer();
+    await activateMicrophone();
+    startVehicleDetection();
+}
+

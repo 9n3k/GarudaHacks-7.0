@@ -166,14 +166,15 @@
 
     <div class="takeover-screen">
         
-        <button class="takeover-close-btn" onclick="window.location.href='streetmode.html'" aria-label="Dismiss Warning">
-            ✕
+        <button class="takeover-close-btn" id="closeWarning" aria-label="Dismiss Warning">
+        ✕
         </button>
 
         <div class="takeover-content">
             <h1 class="warning-text">
-                WARNING!<br>VEHICLE APPROACHING FROM <span class="direction-highlight" id="vehicleDirection">BEHIND</span>
+                WARNING!<br>VEHICLE <span class="direction-highlight" id="vehicleDirection">APPROACHING</span>
             </h1>
+            
             
             <div class="radar-container">
                 <div class="wave wave1"></div>
@@ -184,11 +185,12 @@
                 </div>
             </div>
             
-            <p class="action-text">LOOK AROUND IMMEDIATELY</p>
+            <p class="action-text">CHECK AROUND AND MOVE TO SAFETY!</p>
         </div>
         
     </div>
+    
 
-    <script src="script.js"></script>
+    <script src="warning.js"></script>
 </body>
 </html>
